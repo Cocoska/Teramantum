@@ -30,9 +30,7 @@ namespace Teramantum.Adapter
                     var valores = linea.Split(';');
                     var listaServicios = new List<Servicio>();
 
-                    Console.WriteLine($"Procesando línea: {linea}");
-
-                    if (valores.Length >= 18)
+                    if (valores.Length <= 18)
                     {
                         listaServicios.Add(new Servicio
                         {
@@ -43,7 +41,6 @@ namespace Teramantum.Adapter
                         });
                     }
                 }
-                Console.WriteLine($"termine");
 
             } catch (Exception ex)
             {
@@ -53,7 +50,6 @@ namespace Teramantum.Adapter
         }
         public List<Servicio> Buscardor(string depaNombre, string muniNombre, string clasePersona, string nivel)
         {
-            Console.WriteLine($"Buscando servicios con: {depaNombre}, {muniNombre}, {clasePersona}, {nivel}");
             return servicios.Where(s =>
             s.depaNombre.Equals(depaNombre) ||
             s.muniNombre.Equals(muniNombre) ||

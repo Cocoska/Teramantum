@@ -29,19 +29,12 @@
 
 <button class="btn btn-primary mt-3" @onclick="Buscar">Buscar</button>
 
-<button class="btn btn-primary" @onclick="Cargar">Da click</button>
 
-@if (true)
+@if (resultados != null)
 {
-    <h2>Funciono (@llave)</h2>
-    <h2>Resultados (@listaServicios)</h2>
-}
+    <h2>Resultados (@resultados.Count)</h2>
 
-@if (listaServicios != null)
-{
-    <h2>Resultados (@listaServicios.Count)</h2>
-
-    @if (listaServicios.Any())
+    @if (resultados.Any())
     {
         <table class="table table-striped mt-3">
             <thead>
@@ -53,7 +46,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var servicio in listaServicios)
+                @foreach (var servicio in resultados)
                 {
                     <tr>
                         <td>@servicio.depaNombre</td>
@@ -77,9 +70,7 @@
     private string clasePersonaFiltro;
     private string nivelFiltro;
     private List<Servicio> listaServicios;
-    private List<Servicio> resultados;
-
-    
+    private List<Servicio> resultados;    
 
     private async Task Buscar()
     {
@@ -90,16 +81,4 @@
             nivelFiltro
 		));
     }
-}
-
-@code {
-
-    private bool llave = false;
-
-    private void Cargar()
-    {
-        Console.WriteLine("Cargando servicios...");
-        llave = true;
-    }
-
 }
