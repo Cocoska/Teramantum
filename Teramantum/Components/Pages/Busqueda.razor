@@ -1,0 +1,105 @@
+﻿@page "/buscador"
+@using System.Diagnostics
+@using Teramantum.Interface
+@using Teramantum.Model
+
+@inject IServicioBuscador Buscador
+
+<h1>Buscador de Servicios</h1>
+
+<div class="form-group">
+    <label for="depa">Departamento:</label>
+    <input type="text" id="depa" class="form-control" @bind="depaFiltro" />
+</div>
+
+<div class="form-group">
+    <label for="muni">Municipio:</label>
+    <input type="text" id="muni" class="form-control" @bind="muniFiltro" />
+</div>
+
+<div class="form-group">
+    <label for="clase">Clase de Persona:</label>
+    <input type="text" id="clase" class="form-control" @bind="clasePersonaFiltro" />
+</div>
+
+<div class="form-group">
+    <label for="nivel">Nivel:</label>
+    <input type="text" id="nivel" class="form-control" @bind="nivelFiltro" />
+</div>
+
+<button class="btn btn-primary mt-3" @onclick="Buscar">Buscar</button>
+
+<button class="btn btn-primary" @onclick="Cargar">Da click</button>
+
+@if (true)
+{
+    <h2>Funciono (@llave)</h2>
+    <h2>Resultados (@listaServicios)</h2>
+}
+
+@if (listaServicios != null)
+{
+    <h2>Resultados (@listaServicios.Count)</h2>
+
+    @if (listaServicios.Any())
+    {
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Departamento</th>
+                    <th>Municipio</th>
+                    <th>Clase Persona</th>
+                    <th>Nivel</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var servicio in listaServicios)
+                {
+                    <tr>
+                        <td>@servicio.depaNombre</td>
+                        <td>@servicio.muniNombre</td>
+                        <td>@servicio.clasePersonal</td>
+                        <td>@servicio.nivel</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No se encontraron servicios con esos filtros.</p>
+    }
+}
+
+@code {
+    private string depaFiltro;
+    private string muniFiltro;
+    private string clasePersonaFiltro;
+    private string nivelFiltro;
+    private List<Servicio> listaServicios;
+    private List<Servicio> resultados;
+
+    
+
+    private async Task Buscar()
+    {
+        await Task.Run(() => Buscador.Buscardor(
+            depaFiltro,
+            muniFiltro,
+            clasePersonaFiltro,
+            nivelFiltro
+		));
+    }
+}
+
+@code {
+
+    private bool llave = false;
+
+    private void Cargar()
+    {
+        Console.WriteLine("Cargando servicios...");
+        llave = true;
+    }
+
+}

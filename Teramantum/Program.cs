@@ -1,11 +1,14 @@
+using Teramantum.Adapter;
 using Teramantum.Client.Pages;
 using Teramantum.Components;
+using Teramantum.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
+builder.Services.AddSingleton<IServicioBuscador, ServicioBuscador>();
 
 var app = builder.Build();
 
